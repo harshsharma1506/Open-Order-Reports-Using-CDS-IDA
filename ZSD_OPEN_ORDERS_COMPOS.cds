@@ -8,11 +8,11 @@ define view Zsd_Open_Orders_Compos
   with parameters
     p_erdat : erdat
   as select from    ZSD_BASE_ORDERS
-    left outer join      marc as m   on  ZSD_BASE_ORDERS.matnr = m.matnr
+    left outer to one join      marc as m   on  ZSD_BASE_ORDERS.matnr = m.matnr
                                 and ZSD_BASE_ORDERS.werks = m.werks
     inner join      makt as mak on  ZSD_BASE_ORDERS.matnr = mak.matnr
                                 and mak.spras             = 'E'
-    left outer join vbakuk      on ZSD_BASE_ORDERS.vbeln = vbakuk.vbeln
+    left outer to one join vbakuk      on ZSD_BASE_ORDERS.vbeln = vbakuk.vbeln
                                 and vbakuk.erdat = :p_erdat
   association [1..*] to vbpa as _vbpa on  _vbpa.vbeln = ZSD_BASE_ORDERS.vbeln
                                       and _vbpa.parvw = 'AG'
